@@ -1,6 +1,14 @@
 = hash_graph
 
-Description goes here.
+HashGraph::DirectedGraph and HashGraph::UndirectedGraph are simple implementations of 
+a directed an undirected graph respectively, based on Hash
+
+HashGraph::UndirectedGraph ensures that g[a][b]==g[b][a]
+
+HashGraph::DirectedGraph ensures that for every edge g[a][b] that there is always a key
+b in the Hash g, so all nodes can be identified by g.keys
+
+HashGraph::DirectedGraph also includes TSort for Tarjan's algorithm
 
 == Note on Patches/Pull Requests
  
@@ -14,4 +22,4 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2010 mccraig mccraig of the clan mccraig. See LICENSE for details.
+Copyright (c) 2010 Trampoline Systems Ltd. See LICENSE for details.

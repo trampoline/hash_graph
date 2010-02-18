@@ -5,13 +5,14 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "hash_graph"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "mccraigmccraig@googlemail.com"
-    gem.homepage = "http://github.com/mccraigmccraig/hash_graph"
+    gem.summary = %Q{simple Hash based directed and undirected graph implementations for Ruby}
+    gem.description = %Q{Hash based directed and undirected graph implementations for Ruby}
+    gem.email = "craig@trampolinesystems.com"
+    gem.homepage = "http://github.com/trampoline/hash_graph"
     gem.authors = ["mccraig mccraig of the clan mccraig"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_development_dependency "yard", ">= 0"
+    gem.add_development_dependency "rr", ">= 0.10.5"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

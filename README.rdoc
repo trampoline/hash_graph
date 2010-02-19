@@ -12,8 +12,8 @@ HashGraph::DirectedGraph also includes TSort for Tarjan's algorithm
 
 == Install
 
-gem source --add http://gemcutter.org
-gem install hash_graph
+  gem source --add http://gemcutter.org
+  gem install hash_graph
 
 == Note on Patches/Pull Requests
  

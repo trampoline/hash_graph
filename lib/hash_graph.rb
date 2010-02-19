@@ -35,6 +35,23 @@ module HashGraph
       end
     end
 
+    # convert to an UndirectedGraph, with a proc which takes weights
+    # (a,b,weight_a_b,weight_b_a) as parameters [weights may be nil, indicating no edge], 
+    # and returns weight_a_b or nil for the undirected graph edge [ which will be the same
+    # as weight_b_a ]
+    def to_undirected_graph(&proc)
+      inject(UndirectedGraph.new()) do |ug,(a,targets)|
+        targets.each do |(b,weight_a_b)|
+          if !ug[a][b]
+            weight_b_a = self[b][a]
+            undw = proc.call(a,b,weight_a_b, weight_b_a)
+            ug[a][b]=undw if undw
+          end
+        end
+        ug
+      end
+    end
+
     alias tsort_each_node each_key
 
     def tsort_each_child(node,&block)

@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require 'set'
 
 describe HashGraph do
   module HashGraph
@@ -26,6 +27,39 @@ describe HashGraph do
         h[:foo][:bar] = 1
         h[:bar][:baz] = 5
         h.should == {:foo=>{:bar=>1}, :bar=>{:baz=>5}, :baz=>{}}
+      end
+
+      describe "to_undirected_graph" do
+        it "should convert a directed graph with bi-directional edges to an undirected graph" do
+          h = DirectedGraph.new
+          h[:foo][:bar] = 1
+          h[:bar][:foo] = 3
+          h.to_undirected_graph do |a,b,wab,wba| 
+            [a,b].to_set.should == [:foo,:bar].to_set
+            [wab,wba].to_set.should == [1,3].to_set
+            wab+wba
+          end.should=={:foo=>{:bar=>4}, :bar=>{:foo=>4}}
+        end
+
+        it "should convert a directed graph with asymmetric edges to an undirected graph" do
+          h = DirectedGraph.new
+          h[:foo][:bar] = 1
+          h.to_undirected_graph do |a,b,wab,wba| 
+            [a,b].should == [:foo,:bar]
+            [wab,wba].should == [1,nil]
+            wab
+          end.should=={:foo=>{:bar=>1}, :bar=>{:foo=>1}}
+        end
+
+        it "should not create undirected edges if the proc returns nil" do
+          h = DirectedGraph.new
+          h[:foo][:bar] = 1
+          h.to_undirected_graph do |a,b,wab,wba| 
+            [a,b].should == [:foo,:bar]
+            [wab,wba].should == [1,nil]
+            nil
+          end.should=={}
+        end
       end
     end
 

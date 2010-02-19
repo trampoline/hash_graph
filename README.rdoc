@@ -10,6 +10,11 @@ b in the Hash g, so all nodes can be identified by g.keys
 
 HashGraph::DirectedGraph also includes TSort for Tarjan's algorithm
 
+== Install
+
+gem source --add http://gemcutter.org
+gem install hash_graph
+
 == Note on Patches/Pull Requests
  
 * Fork the project.

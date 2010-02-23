@@ -1,4 +1,5 @@
 require 'tsort'
+require 'set'
 
 module HashGraph
   # a simple directed graph representation for TSort,
@@ -86,5 +87,28 @@ module HashGraph
         UndirectedGraph::new_lower_hash(h,a_vertex)
       end
     end
+
+    # returns graph components
+    def components()
+      seen = Set.new
+      comps = []
+      keys.each do |vertex|
+        if !seen.include?(vertex)
+          seen.add(vertex)
+          comps << explore_component(seen, Set.new([vertex]), vertex).to_a
+        end
+      end
+      comps
+    end
+
+    def explore_component(seen, component, vertex)
+      self[vertex].keys.each do |conn_v|
+        explore_component(seen.add(conn_v), 
+                          component.add(conn_v), 
+                          conn_v) if !seen.include?(conn_v)
+      end
+      component
+    end
+      
   end
 end

@@ -81,6 +81,15 @@ describe HashGraph do
         h[:foo][:bar]=1
         h.should == {:foo=>{:bar=>1}, :bar=>{:foo=>1}}
       end
+
+      it "should extract components from an UndirectedGraph" do
+        h=UndirectedGraph.new
+        h[:foo][:bar]=1
+        h[:foo][:baz]=1
+        h[:boo][:woo]=1
+        h.components.map(&:to_set).to_set.should == [[:foo, :bar, :baz].to_set, 
+                                                     [:boo, :woo].to_set].to_set
+      end
     end
 
   end

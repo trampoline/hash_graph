@@ -90,6 +90,19 @@ describe HashGraph do
         h.components.map(&:to_set).to_set.should == [[:foo, :bar, :baz].to_set, 
                                                      [:boo, :woo].to_set].to_set
       end
+
+      it "should permit nodes to be filtered out when extracting components" do
+        h=UndirectedGraph.new
+        h[:foo][:bar]=1
+        h[:foo][:baz]=1
+        h[:boo][:woo]=1
+        h[:foo][:foofoo]=1
+        h[:foofoo][:boo]=1
+
+        h.components.size.should ==(1)
+        h.components{|v| v!=:foofoo}.map(&:to_set).to_set.should ==  [[:foo, :bar, :baz].to_set, 
+                                                                      [:boo, :woo].to_set].to_set
+      end
     end
 
   end

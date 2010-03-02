@@ -89,23 +89,24 @@ module HashGraph
     end
 
     # returns graph components
-    def components()
+    def components(&include_v)
       seen = Set.new
       comps = []
       keys.each do |vertex|
-        if !seen.include?(vertex)
+        if !seen.include?(vertex) && (!include_v || include_v.call(vertex))
           seen.add(vertex)
-          comps << explore_component(seen, Set.new([vertex]), vertex).to_a
+          comps << explore_component(seen, Set.new([vertex]), vertex, include_v).to_a
         end
       end
       comps
     end
 
-    def explore_component(seen, component, vertex)
+    def explore_component(seen, component, vertex, include_v)
       self[vertex].keys.each do |conn_v|
         explore_component(seen.add(conn_v), 
                           component.add(conn_v), 
-                          conn_v) if !seen.include?(conn_v)
+                          conn_v,
+                          include_v) if !seen.include?(conn_v) && (!include_v || include_v.call(conn_v))
       end
       component
     end

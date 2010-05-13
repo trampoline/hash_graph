@@ -10,7 +10,7 @@ begin
     gem.email = "craig@trampolinesystems.com"
     gem.homepage = "http://github.com/trampoline/hash_graph"
     gem.authors = ["mccraig mccraig of the clan mccraig"]
-    gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_development_dependency "rspec", ">= 1.2.8"
     gem.add_development_dependency "yard", ">= 0"
     gem.add_development_dependency "rr", ">= 0.10.5"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
